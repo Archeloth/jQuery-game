@@ -1,0 +1,71 @@
+body{
+    height: 100vh;
+    background: linear-gradient(to top,black,white);
+}
+.wrapper{
+    margin-top: 50px;
+}
+.wrapper > div{
+    margin: auto;
+}
+.board{
+    height: 500px;
+    width: 500px;
+    position: relative;
+    background-color: white;
+    border: 1px solid black;
+}
+.board > div{
+    position: absolute;
+    height: 100px;
+    width: 100px;
+}
+.player{
+    background-color: black;
+    z-index: 10;
+}
+.goal{
+    background-color: red;
+}
+.controls{
+    height: 150px;
+    width: 500px;
+    background-color: rgb(99, 99, 99);
+    position: relative;
+}
+.controls > button{
+    height: 50px;
+    width: 100px;
+    font-weight: bolder;
+    font-size: 1.5rem;
+    position: absolute;
+}
+#up{
+    top: 0px;
+    left: 200px;
+}
+#down{
+    top: 100px;
+    left: 200px;
+}
+#left{
+    top: 50px;
+    left: 100px;
+}
+#right{
+    top: 50px;
+    left: 300px;
+}
+button{
+    border: 3px solid rgb(255, 255, 255);
+    color: rgb(255, 255, 255);
+    border-radius: 10px;
+    background-color: transparent;
+    transition: all 0.5s;
+    outline: none;
+}
+button:hover{
+    border-color: black;
+    background-color: rgb(204, 204, 204);
+    color: rgb(0, 0, 0);
+}

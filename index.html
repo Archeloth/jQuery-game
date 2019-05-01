@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script
+  src="https://code.jquery.com/jquery-3.4.0.min.js"
+  integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg="
+  crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="style.css">
+    <title>Simple Game</title>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="board">
+            <div class="player"></div>
+            <div class="goal"></div>
+        </div>
+        <div class="controls">
+            <button id="up">Up</button>
+            <button id="down">Down</button>
+            <button id="left">Left</button>
+            <button id="right">Right</button>
+        </div>
+    </div>
+
+    <script>
+    const board = $(".board");//The game board element
+    const player = $(".player");//The black player element
+    let currPosition = [player.offset().top,player.offset().left];//The current position on the player. Gets updated after every (successful) button click
+    const goal = $(".goal");//The red goal objective element
+   
+    //Set GOAL to a random position inside the BOARD
+    let randomPositionTop = Math.floor(Math.random()*4)+1;
+    let randomPositionLeft = Math.floor(Math.random()*4)+1;
+    //console.log("The goal position "+randomPositionTop+" "+randomPositionLeft);
+
+    //Setting the goal's starting position, modifying its CSS properties
+    $(".goal").css({
+        "top" : randomPositionTop*100,
+        "left" : randomPositionLeft*100
+    });
+
+    let isAnimating = false;//switch so the animations (movements) can finish
+    let duration=500; // animation duration
+
+    function DidWeWin(){//Checks if the player's current position is on top of the goal
+        if(currPosition[0]==goal.offset().top && currPosition[1]==goal.offset().left){
+            setTimeout(function() {
+                if(window.confirm("You won! Want a rematch?")){//Wait untill the animation of the move finishes
+                    location.reload();//New game starts
+                }
+                else{
+                    //Nothing
+                }
+            }, duration);
+        }
+    }
+    //MOUSE EVENTS
+    $("#up").click(function(){
+        if(player.offset().top>board.offset().top+2 && isAnimating==false){
+            player.animate(
+            { "top": "-=100px"},duration);
+
+            currPosition[0]-=100;
+
+            isAnimating=true;
+            setTimeout(function() {//Delay for the animation to finish, so the next input doesn't buffer up
+                isAnimating = false;
+            }, duration);
+        }
+        DidWeWin();
+    });
+    $("#down").click(function(){
+        if(player.offset().top<board.offset().top+400 && isAnimating==false){
+            player.animate(
+            { "top": "+=100px"},duration);
+
+            currPosition[0]+=100;
+
+            isAnimating=true;
+            setTimeout(function() {
+                isAnimating = false;
+            }, duration);
+        } 
+        DidWeWin();
+    });
+    $("#left").click(function(){
+        if(player.offset().left>board.offset().left+2 && isAnimating==false){
+            player.animate(
+            { "left": "-=100px"},duration);
+
+            currPosition[1]-=100;
+
+            isAnimating=true;
+            setTimeout(function() {
+                isAnimating = false;
+            }, duration);
+        }
+        DidWeWin();
+    });
+    $("#right").click(function(){
+        if(player.offset().left<board.offset().left+400 && isAnimating==false){
+            player.animate(
+            { "left": "+=100px"},duration);
+
+            currPosition[1]+=100;
+
+            isAnimating=true;
+            setTimeout(function() {
+                isAnimating = false;
+            }, duration);
+        }
+        DidWeWin();
+    });
+    </script>
+</body>
+</html>
